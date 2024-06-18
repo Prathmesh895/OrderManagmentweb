@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Delete from '@/app/updateItem/delete/[id]/page'
 import Update from '@/app/updateItem/updateItem/[id]/page'
 import Loading from '@/app/components/loading'
-import ShowOrders from './showOrders';
+
 
 export default function FetchItem({ onCountsChange }) {
     const [itemsData, setItemsData] = useState([]); // State to hold all items fetched from API
