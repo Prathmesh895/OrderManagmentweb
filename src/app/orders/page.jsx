@@ -81,7 +81,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 function OrderPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const query = searchParams.get("category");
+    const query = searchParams.get("category") || null;
     const pathname = usePathname();
     const [showOrderForm, setShowOrderForm] = useState(false);
     const [counts, setCounts] = useState({ totalOrder: 0, completeOrders: 0, inProcessingOrders: 0 });
