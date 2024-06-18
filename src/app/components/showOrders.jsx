@@ -1,7 +1,8 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import Loading from '@/app/components/loading';
 import { useSearchParams } from 'next/navigation';
+
 
 
 function ShowOrders({ onCountsChange }) {
@@ -111,6 +112,7 @@ function ShowOrders({ onCountsChange }) {
 
     return (
         <>
+        <Suspense fallback={<div>Loading...</div>}>
             <div className='my-2 flex space-x-2'>
                 <input
                     type='text'
@@ -200,6 +202,7 @@ function ShowOrders({ onCountsChange }) {
                     )}
                 </tbody>
             </table>
+            </Suspense>
         </>
     );
 }

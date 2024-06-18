@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 import { FiEdit } from "react-icons/fi";
 import { useSearchParams } from 'next/navigation';
@@ -127,93 +127,93 @@ export default function FetchItem({ onCountsChange }) {
 
     return (
         <>
-            <table className='border m-5 lg:w-[97%]  bg-white'>
-                <thead className='border bg-gray-100'>
-                    <tr className='p-2'>
-                        <th className='border p-2'>ID</th>
-                        <th className='border p-2'>Item Name</th>
-                        <th className='border p-2'>Available Quantity</th>
-                        <th className='border p-2'>Price/Item</th>
-                        <th className='border p-2'>Delete</th>
-                    </tr>
-                </thead>
-                <tbody className='border'>
-                    {loading ? (
-                        <tr>
-                            <td colSpan='5' className='text-center'>
-                                <Loading />
-                            </td>
+            <Suspense fallback={<div>Loading...</div>}>
+                <table className='border m-5 lg:w-[97%]  bg-white'>
+                    <thead className='border bg-gray-100'>
+                        <tr className='p-2'>
+                            <th className='border p-2'>ID</th>
+                            <th className='border p-2'>Item Name</th>
+                            <th className='border p-2'>Available Quantity</th>
+                            <th className='border p-2'>Price/Item</th>
+                            <th className='border p-2'>Delete</th>
                         </tr>
-                    ) : currentItems.length > 0 ? (
-                        currentItems.map((item, index) => (
-                            <tr key={index} className='border cursor-pointer'>
-                                <td className='border text-center p-2'>{indexOfFirstItem + index + 1}</td>
-                                <td className='border text-center p-2'>{item.title}</td>
-                                <td className='border text-center p-2'>{item.stock}</td>
-                                <td className='border text-center p-2'>{item.price}</td>
-                                <td className='flex justify-evenly items-center text-center p-2'>
-                                    <p onClick={() => { handleonDelete(item._id, item.title), handleonShowDeletebox() }} className=' hover:text-red-600'><MdDelete size={25} /> </p>
-                                    <p onClick={() => { handleOnUpdate(item._id, item.title, item.stock, item.price), handleOnShowUpdate() }}><FiEdit /></p>
+                    </thead>
+                    <tbody className='border'>
+                        {loading ? (
+                            <tr>
+                                <td colSpan='5' className='text-center'>
+                                    <Loading />
                                 </td>
                             </tr>
-                        ))
-                    ) : (
-                        <tr>
-                            <td colSpan='5' className='p-2'>
-                                <Loading />
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+                        ) : currentItems.length > 0 ? (
+                            currentItems.map((item, index) => (
+                                <tr key={index} className='border cursor-pointer'>
+                                    <td className='border text-center p-2'>{indexOfFirstItem + index + 1}</td>
+                                    <td className='border text-center p-2'>{item.title}</td>
+                                    <td className='border text-center p-2'>{item.stock}</td>
+                                    <td className='border text-center p-2'>{item.price}</td>
+                                    <td className='flex justify-evenly items-center text-center p-2'>
+                                        <p onClick={() => { handleonDelete(item._id, item.title), handleonShowDeletebox() }} className=' hover:text-red-600'><MdDelete size={25} /> </p>
+                                        <p onClick={() => { handleOnUpdate(item._id, item.title, item.stock, item.price), handleOnShowUpdate() }}><FiEdit /></p>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan='5' className='p-2'>
+                                    <Loading />
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
 
-            {/* Pagination Controls */}
-            {filterItems.length > itemsPerPage && (
-                <div className='flex justify-center my-4 '>
-                    {/* Previous Page Button */}
-                    <button
-                        onClick={handlePrevPage}
-                        className={`mx-1 px-3 py-1 rounded-md ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'
-                            }`}
-                        disabled={currentPage === 1}
-                    >
-                        Previous
-                    </button>
-                    {/* Page Number Buttons */}
-                    {[...Array(Math.ceil(filterItems.length / itemsPerPage)).keys()].map(pageNumber => (
+                {/* Pagination Controls */}
+                {filterItems.length > itemsPerPage && (
+                    <div className='flex justify-center my-4 '>
+                        {/* Previous Page Button */}
                         <button
-                            key={pageNumber}
-                            onClick={() => paginate(pageNumber + 1)}
-                            className={`mx-1 px-3 py-1 rounded-md ${currentPage === pageNumber + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'
+                            onClick={handlePrevPage}
+                            className={`mx-1 px-3 py-1 rounded-md ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'
                                 }`}
+                            disabled={currentPage === 1}
                         >
-                            {pageNumber + 1}
+                            Previous
                         </button>
-                    ))}
-                    {/* Next Page Button */}
-                    <button
-                        onClick={handleNextPage}
-                        className={`mx-1 px-3 py-1 rounded-md ${currentPage === Math.ceil(filterItems.length / itemsPerPage)
-                            ? 'bg-gray-300 cursor-not-allowed'
-                            : 'bg-gray-200 hover:bg-gray-300'
-                            }`}
-                        disabled={currentPage === Math.ceil(filterItems.length / itemsPerPage)}
-                    >
-                        Next
-                    </button>
-                </div>
-            )}
-            {
-                showDeletebox &&
-                <>
-                    <Delete itemData={deleteItem} />
-                </>
-            }
-            {showUpdatebox &&
-                <Update itemData={updateItem} />
-            }
-
-
+                        {/* Page Number Buttons */}
+                        {[...Array(Math.ceil(filterItems.length / itemsPerPage)).keys()].map(pageNumber => (
+                            <button
+                                key={pageNumber}
+                                onClick={() => paginate(pageNumber + 1)}
+                                className={`mx-1 px-3 py-1 rounded-md ${currentPage === pageNumber + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'
+                                    }`}
+                            >
+                                {pageNumber + 1}
+                            </button>
+                        ))}
+                        {/* Next Page Button */}
+                        <button
+                            onClick={handleNextPage}
+                            className={`mx-1 px-3 py-1 rounded-md ${currentPage === Math.ceil(filterItems.length / itemsPerPage)
+                                ? 'bg-gray-300 cursor-not-allowed'
+                                : 'bg-gray-200 hover:bg-gray-300'
+                                }`}
+                            disabled={currentPage === Math.ceil(filterItems.length / itemsPerPage)}
+                        >
+                            Next
+                        </button>
+                    </div>
+                )}
+                {
+                    showDeletebox &&
+                    <>
+                        <Delete itemData={deleteItem} />
+                    </>
+                }
+                {showUpdatebox &&
+                    <Update itemData={updateItem} />
+                }
+            </Suspense>
         </>
     );
 }

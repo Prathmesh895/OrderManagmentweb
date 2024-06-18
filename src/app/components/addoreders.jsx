@@ -11,9 +11,6 @@ function AddOrders({ items, onClose }) {
         Items: [] // [{ id: itemID, name: itemName, quantity: number }]
     });
 
-    // State for showing order data (if needed)
-    const [showOrderData, setShowOrderData] = useState([]);
-
     // Handle changes in text input fields (customer and ItemId)
     const handleOrderData = (e) => {
         const { name, value } = e.target;
