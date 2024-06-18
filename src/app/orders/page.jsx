@@ -74,7 +74,7 @@
 
 'use client'
 import React, { Suspense, useState } from 'react';
-import AddOrders from '../components/addOrders';
+import AddOrders from '../components/addoreders';
 import ShowOrders from '../components/showOrders';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
