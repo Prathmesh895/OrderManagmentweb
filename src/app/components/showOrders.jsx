@@ -37,8 +37,8 @@ function ShowOrders({ onCountsChange }) {
         if (ordersData.length > 0) {
             const totalOrder = ordersData.length;
             const completeOrders = ordersData.filter(order => order.status === 'completed').length;
-            const inprocessingOrders = ordersData.filter(order => order.status === 'processing').length;
-            onCountsChange({ totalOrder, completeOrders, inprocessingOrders });
+            const inprocessingorders = ordersData.filter(order => order.status === 'processing').length;
+            onCountsChange({ totalOrder, completeOrders, inprocessingorders });
         }
     }, [ordersData]);
 
@@ -52,10 +52,10 @@ function ShowOrders({ onCountsChange }) {
     const showItemsByStock = (type) => {
         let filteredItems = [];
         switch (type) {
-            case 'Completed orders':
+            case 'Completed Orders':
                 filteredItems = ordersData.filter(order => order.status === 'completed');
                 break;
-            case 'In Process orders':
+            case 'In Process Orders':
                 filteredItems = ordersData.filter(order => order.status === 'processing');
                 break;
             case 'Total Orders':

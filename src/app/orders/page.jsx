@@ -76,6 +76,7 @@
 import React, { Suspense, useState } from 'react';
 import AddOrders from '../components/addoreders';
 import ShowOrders from '../components/showOrders';
+import Loading from '@/app/components/loading'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 function OrderPage() {
@@ -84,7 +85,7 @@ function OrderPage() {
     const query = searchParams.get("category") || null;
     const pathname = usePathname();
     const [showOrderForm, setShowOrderForm] = useState(false);
-    const [counts, setCounts] = useState({ totalOrder: 0, completeOrders: 0, inProcessingOrders: 0 });
+    const [counts, setCounts] = useState({ totalOrder: 0, completeOrders: 0, inprocessingorders : 0 });
 
     // Set query for filter items according to it
     const handleOnCategory = (category) => {
@@ -103,7 +104,7 @@ function OrderPage() {
 
     return (
         <>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading/>}>
                 <section className="m-5">
                     <div>
                         {/* Header section with title and button */}
@@ -143,7 +144,7 @@ function OrderPage() {
                                 }`}
                             >
                                 <h1 className="font-semibold text-xl text-red-500">In Process Orders</h1>
-                                <h2 className="text-gray-500 font-semibold text-md">Total {counts.inProcessingOrders}</h2>
+                                <h2 className="text-gray-500 font-semibold text-md">Total {counts.inprocessingorders}</h2>
                             </div>
                         </nav>
                     </div>
