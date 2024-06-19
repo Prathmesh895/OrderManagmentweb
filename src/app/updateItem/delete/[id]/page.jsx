@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 
-function page({ itemData }) {
+function page({ itemData,onclange }) {
     const _id = itemData._id;
     // console.log("fetch id",_id);
     const title = itemData.title;
@@ -50,7 +50,7 @@ function page({ itemData }) {
                         <h1 className='text-green-500 text-center'>{message}</h1> // successfull message on delete
                     }
                     <div className='flex space-x-5 justify-evenly mt-10'>
-                        <button className='bg-gray-200 py-2 px-5 basis-1/3 rounded hover:bg-violet-700 hover:text-white'>Cancel</button>
+                        <button onClick={onclange} className='bg-gray-200 py-2 px-5 basis-1/3 rounded hover:bg-violet-700 hover:text-white'>Cancel</button>
                         <button onClick={handleOnDelete} className='bg-red-500 text-white basis-1/3 py-2 px-5 rounded hover:bg-red-700'>Yes,Delete</button>
                     </div>
                 </div>

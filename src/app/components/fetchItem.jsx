@@ -107,7 +107,7 @@ export default function FetchItem({ onCountsChange }) {
             title: title
         }
         setDeleteItem(itemsData);
-        console.log(itemsData)
+        // console.log(itemsData)
     }
     const handleonShowDeletebox = () => {
         setShowDeletebox(!showDeletebox);
@@ -122,13 +122,14 @@ export default function FetchItem({ onCountsChange }) {
             id, Itemname, stock, price
         }
         setUpdateItem(updateData);
-        console.log(updateItem);
+        // console.log(updateItem);
     }
 
     return (
         <>
             <Suspense fallback={<div>Loading...</div>}>
-                <table className='border m-5 lg:w-[97%]  bg-white'>
+            <div className='overflow-x-auto'>
+                <table className='border m-5 lg:w-[97%]  bg-white overflow-hidden'>
                     <thead className='border bg-gray-100'>
                         <tr className='p-2'>
                             <th className='border p-2'>ID</th>
@@ -167,6 +168,7 @@ export default function FetchItem({ onCountsChange }) {
                         )}
                     </tbody>
                 </table>
+            </div>
 
                 {/* Pagination Controls */}
                 {filterItems.length > itemsPerPage && (
@@ -207,7 +209,7 @@ export default function FetchItem({ onCountsChange }) {
                 {
                     showDeletebox &&
                     <>
-                        <Delete itemData={deleteItem} />
+                        <Delete itemData={deleteItem} onclange={handleonShowDeletebox}/>
                     </>
                 }
                 {showUpdatebox &&

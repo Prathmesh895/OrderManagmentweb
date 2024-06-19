@@ -17,13 +17,13 @@ export default function Sidebar() {
 
     return (
         <div className=' bg-white p-3 border-b'>
-            <div className='flex justify-between'>
-            <h1 className=' font-semibold text-2xl'>FoodApp</h1>
+            <div className='flex justify-between items-center'>
+            <h1 className=' font-semibold lg:text-2xl text-xl'>FoodApp</h1>
             {sidebarData.map((data, index) => (
                 <div key={index} className="p-2">
-                    <Link href={data.link} className="flex items-center space-x-2">
+                    <Link href={data.link} className="flex items-center lg:space-x-2">
                     <span className={`${pathname === data.link ? 'text-orange-600' : ''}`}>{data.icon && <data.icon className="text-xl" />}</span>
-                        <span className={`${pathname === data.link ? 'text-orange-600' : ''}`}>{data.title}</span>
+                        <span className={`text-sm ${pathname === data.link ? 'text-orange-600' : ''}`}>{data.title}</span>
                     </Link>
                 </div>
             ))}
